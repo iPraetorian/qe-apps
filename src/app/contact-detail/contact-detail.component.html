@@ -1,0 +1,17 @@
+<div *ngIf="contact">
+  <h2 class="contacth2">{{ contact.name | uppercase }} Details</h2>
+ <div><span>Title: </span>{{contact.title}} </div>
+ <div><span>Bio:</span>{{contact.bio}}</div>
+ <div><span>Tel:</span>{{contact.tel}}</div>
+ 
+<div>
+  <label>Name:
+    <input [(ngModel)]="contact.name" placeholder="name"/>
+  </label>
+  </div>
+
+  <img class="thumbnail"[src]="contact.image">
+  <button class="detailbtn"(click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>
+
