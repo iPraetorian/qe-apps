@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Contact } from '../contact';
 import { MessageService } from './message.service';
+import { environment } from '../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,7 +17,7 @@ const httpOptions = {
 export class ContactService {
 
   //URL to web api
-  private contactsUrl = '/api/contacts';
+  private contactsUrl = `${environment.api_base_url}/contacts`;
 
   //constructor(private messageService: MessageService) { } OLD SERVICE INJECTION
   constructor(
@@ -27,13 +28,14 @@ export class ContactService {
   getContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>(this.contactsUrl)
       .pipe(
+        map(r => { console.log('r', r); return r; }),
         catchError(this.handleError('getContacts', []))
       );
   }
 
   //**GET contact by id. Return `undefined` when id not found */
   getContactNo404<Data>(id: number): Observable<Contact> {
-    const url = `${this.contactsUrl}/?id=${id}`;
+    const url = `${this.contactsUrl}/${id}`;
     return this.http.get<Contact[]>(url)
       .pipe(
         map(contacts => contacts[0]), //returns a {0|1} element array
