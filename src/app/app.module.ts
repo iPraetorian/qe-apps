@@ -21,8 +21,8 @@ import { RouterModule } from '@angular/router';
 @NgModule({
 
   imports: [
-    RouterModule,
     AppRoutingModule,
+    RouterModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
